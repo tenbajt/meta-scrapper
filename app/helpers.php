@@ -21,7 +21,12 @@ function public_path(string $path = ''): string
  */
 function storage_path(string $path = ''): string
 {
-    return dirname(public_path())."/storage{$path}";
+    $storage_path = dirname(public_path())."/storage";
+
+    if (!file_exists($storage_path)) {
+        mkdir($storage_path, 0777, true);
+    }
+    return $storage_path.$path;
 }
 
 /**
